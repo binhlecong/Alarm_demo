@@ -25,8 +25,7 @@ public abstract class AlarmDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(
                             context.getApplicationContext(),
                             AlarmDatabase.class,
-                            "alarm_database"
-                    ).build();
+                            "alarm_database").build();
                 }
             }
         }

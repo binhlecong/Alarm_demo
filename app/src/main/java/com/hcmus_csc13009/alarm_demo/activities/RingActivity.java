@@ -42,11 +42,6 @@ public class RingActivity extends AppCompatActivity {
                             | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
             );
         }
-/*        KeyguardManager keyguardManager=(KeyguardManager)getSystemService(Context
-.KEYGUARD_SERVICE) ;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                keyguardManager.requestDismissKeyguard(this, null);
-            }*/
 
         alarmsListViewModel = new ViewModelProvider(this).get(AlarmListViewModel.class);
         Bundle bundle = getIntent().getBundleExtra(getString(R.string.bundle_alarm_obj));
@@ -72,8 +67,10 @@ public class RingActivity extends AppCompatActivity {
 
     private void animateClock() {
         ObjectAnimator rotateAnimation =
-                ObjectAnimator.ofFloat(ringActivityViewBinding.activityRingClock, "rotation", 0f,
-                        30f, 0f, -30f, 0f);
+                ObjectAnimator.ofFloat(
+                        ringActivityViewBinding.activityRingClock,
+                        "rotation",
+                        0f, 30f, 0f, -30f, 0f);
         rotateAnimation.setRepeatCount(ValueAnimator.INFINITE);
         rotateAnimation.setDuration(800);
         rotateAnimation.start();

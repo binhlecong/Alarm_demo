@@ -5,6 +5,7 @@ import android.widget.TimePicker;
 
 public final class TimePickerUtil {
     public static int getTimePickerHour(TimePicker tp) {
+        // Choose method based on SDK version
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return tp.getHour();
         } else {

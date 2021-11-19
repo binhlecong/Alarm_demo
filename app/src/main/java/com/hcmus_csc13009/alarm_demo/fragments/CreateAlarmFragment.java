@@ -108,7 +108,9 @@ public class CreateAlarmFragment extends Fragment {
         fragmentCreateAlarmBinding.fragmentCreatealarmTimePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-                fragmentCreateAlarmBinding.fragmentCreatealarmScheduleAlarmHeading.setText(DayUtil.getDay(TimePickerUtil.getTimePickerHour(timePicker), TimePickerUtil.getTimePickerMinute(timePicker)));
+                fragmentCreateAlarmBinding.fragmentCreatealarmScheduleAlarmHeading
+                        .setText(DayUtil.getDay(TimePickerUtil.getTimePickerHour(timePicker),
+                                TimePickerUtil.getTimePickerMinute(timePicker)));
             }
         });
 

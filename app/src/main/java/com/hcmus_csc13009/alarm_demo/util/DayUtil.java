@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 public final class DayUtil {
     public static final String toDay(int day) throws Exception {
+        // Get week day name in String
         switch (day) {
             case Calendar.SUNDAY:
                 return "Sunday";
@@ -24,6 +25,7 @@ public final class DayUtil {
     }
 
     public static String getDay(int hour, int minute) {
+        // Get "Today" or "Tomorrow" based on hour and minute
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, hour);

@@ -24,7 +24,7 @@ public class RescheduleAlarmsService extends LifecycleService {
         super.onStartCommand(intent, flags, startId);
 
         AlarmRepository alarmRepository = new AlarmRepository(getApplication());
-
+        // Use LiveData to observe database changes
         alarmRepository.getAlarmsLiveData().observe(this, new Observer<List<Alarm>>() {
             @Override
             public void onChanged(List<Alarm> alarms) {

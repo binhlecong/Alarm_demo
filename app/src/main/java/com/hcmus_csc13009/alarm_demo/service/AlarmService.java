@@ -46,6 +46,7 @@ public class AlarmService extends Service {
         Bundle bundle = intent.getBundleExtra(getString(R.string.bundle_alarm_obj));
         if (bundle != null)
             alarm = (Alarm) bundle.getSerializable(getString(R.string.arg_alarm_obj));
+
         Intent notificationIntent = new Intent(this, RingActivity.class);
         notificationIntent.putExtra(getString(R.string.bundle_alarm_obj), bundle);
 //        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent
@@ -63,7 +64,6 @@ public class AlarmService extends Service {
                 ex.printStackTrace();
             }
         } else {
-
             try {
                 mediaPlayer.setDataSource(this.getBaseContext(), ringtone);
                 mediaPlayer.prepareAsync();
@@ -72,9 +72,11 @@ public class AlarmService extends Service {
             }
         }
 
+        // After Android Oreo, all notification has to belong to a notification channel
         String channelName = "Alarm Background Service";
         NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
         NotificationChannel notificationChannel = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             notificationChannel = new NotificationChannel(CHANNEL_ID, channelName,
@@ -96,6 +98,7 @@ public class AlarmService extends Service {
                 .setFullScreenIntent(pendingIntent, true)
                 .build();
 
+        // Play ring tone asynchronously
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
@@ -103,11 +106,13 @@ public class AlarmService extends Service {
             }
         });
 
+        // Vibrate when alarm or not
         if (alarm.isVibrate()) {
             long[] pattern = {0, 100, 1000};
             vibrator.vibrate(pattern, 0);
         }
 
+        // Run this foreground service
         startForeground(1, notification);
 
         return START_STICKY;

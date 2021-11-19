@@ -20,15 +20,17 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            String toastText = String.format("Alarm Reboot");
+            String toastText = "Alarm Reboot";
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             startRescheduleAlarmsService(context);
         } else {
             Bundle bundle = intent.getBundleExtra(context.getString(R.string.bundle_alarm_obj));
+
             if (bundle != null)
                 alarm = (Alarm) bundle.getSerializable(context.getString(R.string.arg_alarm_obj));
-            String toastText = String.format("Alarm Received");
+            String toastText = "Alarm Received";
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+
             if (alarm != null) {
                 if (!alarm.isRecurring()) {
                     startAlarmService(context, alarm);
@@ -48,33 +50,19 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         switch (today) {
             case Calendar.MONDAY:
-                if (alarm1.isMonday())
-                    return true;
-                return false;
+                return alarm1.isMonday();
             case Calendar.TUESDAY:
-                if (alarm1.isTuesday())
-                    return true;
-                return false;
+                return alarm1.isTuesday();
             case Calendar.WEDNESDAY:
-                if (alarm1.isWednesday())
-                    return true;
-                return false;
+                return alarm1.isWednesday();
             case Calendar.THURSDAY:
-                if (alarm1.isThursday())
-                    return true;
-                return false;
+                return alarm1.isThursday();
             case Calendar.FRIDAY:
-                if (alarm1.isFriday())
-                    return true;
-                return false;
+                return alarm1.isFriday();
             case Calendar.SATURDAY:
-                if (alarm1.isSaturday())
-                    return true;
-                return false;
+                return alarm1.isSaturday();
             case Calendar.SUNDAY:
-                if (alarm1.isSunday())
-                    return true;
-                return false;
+                return alarm1.isSunday();
         }
         return false;
     }
